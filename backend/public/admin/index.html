@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scentora | لوحة التحكم الإدارية للموقع</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --espresso: #171512;
+      --espresso-dark: #0F0E0C;
+      --espresso-card: #201D19;
+      --gold: #C6A36A;
+      --gold-hover: #D8B781;
+      --ivory: #F7F3EB;
+      --text-muted: #A39686;
+      --border: #3B342C;
+      --success: #2E7D32;
+      --danger: #D32F2F;
+      --warning: #ED6C02;
+      --info: #0288D1;
+      --radius: 6px;
+      --transition: all 0.25s ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cairo', 'Inter', sans-serif;
+      background-color: var(--espresso);
+      color: var(--ivory);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    .admin-sidebar {
+      width: 280px;
+      background-color: var(--espresso-dark);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .admin-brand {
+      padding: 1.75rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-crest {
+      width: 32px;
+      height: 32px;
+      color: var(--gold);
+    }
+
+    .brand-title {
+      font-family: 'Cormorant Garamond', 'Cairo', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--ivory);
+      line-height: 1;
+    }
+
+    .brand-sub {
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      font-weight: 600;
+    }
+
+    .admin-nav {
+      flex: 1;
+      padding: 1.25rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      overflow-y: auto;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      background: none;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      text-align: right;
+      transition: var(--transition);
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background-color: var(--espresso-card);
+      border-color: var(--border);
+      color: var(--gold);
+    }
+
+    .nav-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .sidebar-footer {
+      padding: 1.25rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .view-site-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: var(--espresso-card);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .view-site-link:hover {
+      background-color: var(--gold);
+      color: #171512;
+    }
+
+    /* Main Content Area */
+    .admin-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .admin-topbar {
+      padding: 1.25rem 2.25rem;
+      background-color: var(--espresso-dark);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .topbar-title h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ivory);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-gold {
+      background-color: var(--gold);
+      color: #171512;
+      border: 1px solid var(--gold);
+      padding: 0.65rem 1.35rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: var(--transition);
+    }
+
+    .btn-gold:hover {
+      background-color: var(--gold-hover);
+      box-shadow: 0 4px 15px rgba(198, 163, 106, 0.3);
+    }
+
+    .admin-content {
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Tab Panes */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* Stat Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background-color: var(--espresso-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .stat-val {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1.1;
+    }
+
+    .stat-sub {
+      font-size: 0.74rem;
+      color: #8E8273;
+    }
+
+    /* Tables */
+    .panel-card {
+      background-color: var(--espresso-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .panel-header {
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ivory);
+    }
+
+    .data-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 0.86rem;
+    }
+
+    .data-table th {
+      background-color: var(--espresso-dark);
+      color: var(--gold);
+      padding: 0.95rem 1.25rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(59, 52, 44, 0.6);
+      color: var(--ivory);
+      vertical-align: middle;
+    }
+
+    .data-table tr:hover td {
+      background-color: rgba(198, 163, 106, 0.04);
+    }
+
+    .product-thumb {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 4px;
+      background-color: var(--espresso-dark);
+      border: 1px solid var(--border);
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .badge-delivered { background-color: rgba(46, 125, 50, 0.2); color: #81C784; border: 1px solid #2E7D32; }
+    .badge-processing { background-color: rgba(2, 136, 209, 0.2); color: #4FC3F7; border: 1px solid #0288D1; }
+    .badge-pending { background-color: rgba(237, 108, 2, 0.2); color: #FFB74D; border: 1px solid #ED6C02; }
+    .badge-cancelled { background-color: rgba(211, 47, 47, 0.2); color: #E57373; border: 1px solid #D32F2F; }
+
+    /* Action buttons in tables */
+    .table-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background-color: var(--espresso-dark);
+      color: var(--ivory);
+      transition: var(--transition);
+    }
+
+    .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .action-btn--delete:hover { border-color: var(--danger); color: #FF8A80; }
+
+    /* Forms */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem 1rem;
+      background-color: var(--espresso-dark);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--ivory);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 10px rgba(198, 163, 106, 0.2);
+    }
+
+    /* Modal Dialog */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 14, 12, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background-color: var(--espresso-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 720px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2.25rem;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title { font-size: 1.35rem; font-weight: 700; color: var(--gold); }
+    .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; }
+    .close-btn:hover { color: var(--ivory); }
+
+    /* Toast Notification */
+    .toast-box {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      background-color: var(--espresso-dark);
+      border: 1px solid var(--gold);
+      color: var(--ivory);
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <svg viewBox="0 0 40 40" class="brand-crest" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3"/>
+        <path d="M20 3L23.8 16.2L37 20L23.8 23.8L20 37L16.2 23.8L3 20L16.2 16.2L20 3Z" stroke="currentColor" strokeWidth="1.2"/>
+        <circle cx="20" cy="20" r="4.5" fill="currentColor"/>
+      </svg>
+      <div>
+        <div class="brand-title">SCENTORA</div>
+        <div class="brand-sub">لوحة التحكم المركزية</div>
+      </div>
+    </div>
+
+    <nav class="admin-nav">
+      <button class="nav-btn active" data-tab="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>لوحة المؤشرات (Overview)</span>
+      </button>
+
+      <button class="nav-btn" data-tab="products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>إدارة العطور والمنتجات</span>
+      </button>
+
+      <button class="nav-btn" data-tab="orders">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>إدارة الطلبات والمبيعات</span>
+      </button>
+
+      <button class="nav-btn" data-tab="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>التحكم في الموقع والإعلانات</span>
+      </button>
+
+      <button class="nav-btn" data-tab="messages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>رسائل العملاء (Inquiries)</span>
+      </button>
+
+      <button class="nav-btn" data-tab="subscribers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>مشتركو النشرة البريدية</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="http://localhost:5173" target="_blank" class="view-site-link">
+        <span>فتح موقع المتجر ↗</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN VIEW -->
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div class="topbar-title">
+        <h1 id="topbar-heading">لوحة المؤشرات العامة</h1>
+      </div>
+      <div class="topbar-actions">
+        <button type="button" class="btn-gold" onclick="openAddProductModal()">
+          <span>+ إضافة عطر جديد</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- ================= TAB 1: OVERVIEW ================= -->
+      <section id="tab-overview" class="tab-pane active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">إجمالي المبيعات (Revenue)</span>
+            <span class="stat-val" id="stat-revenue">0 ج.م</span>
+            <span class="stat-sub">من جميع الطلبات المسجلة</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">عدد الطلبات (Orders)</span>
+            <span class="stat-val" id="stat-orders">0</span>
+            <span class="stat-sub" id="stat-pending-orders">0 قيد الانتظار</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">العطور المتوفرة (Products)</span>
+            <span class="stat-val" id="stat-products">0</span>
+            <span class="stat-sub">في المتجر</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">المشتركون (Subscribers)</span>
+            <span class="stat-val" id="stat-subscribers">0</span>
+            <span class="stat-sub" id="stat-unread-msg">0 رسائل جديدة</span>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">أحدث الطلبات (Recent Orders)</h2>
+            <button class="action-btn" onclick="switchTab('orders')">عرض كافة الطلبات ←</button>
+          </div>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>رقم الطلب</th>
+                  <th>العميل</th>
+                  <th>التاريخ</th>
+                  <th>الإجمالي</th>
+                  <th>الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="recent-orders-body">
+                <tr><td colspan="5" style="text-align: center;">جاري تحميل البيانات...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: PRODUCTS ================= -->
+      <section id="tab-products" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">قائمة العطور والمنتجات المتوفرة</h2>
+            <button class="btn-gold" onclick="openAddProductModal()">+ إضافة عطر جديد</button>
+          </div>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>الصورة</th>
+                  <th>اسم العطر</th>
+                  <th>الماركة</th>
+                  <th>الفئة</th>
+                  <th>السعر</th>
+                  <th>الخصم</th>
+                  <th>الحالة</th>
+                  <th>الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="products-table-body">
+                <tr><td colspan="8" style="text-align:center;">جاري تحميل المنتجات...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: ORDERS ================= -->
+      <section id="tab-orders" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">سجل الطلبات والمبيعات الكامل</h2>
+          </div>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>رقم الطلب</th>
+                  <th>العميل والاتصال</th>
+                  <th>العنوان</th>
+                  <th>العطور المطلوبة</th>
+                  <th>المبلغ الإجمالي</th>
+                  <th>طريقة الدفع</th>
+                  <th>حالة الطلب</th>
+                  <th>الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="orders-table-body">
+                <tr><td colspan="8" style="text-align:center;">جاري تحميل الطلبات...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: SITE SETTINGS ================= -->
+      <section id="tab-settings" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">التحكم في نصوص الموقع والشريط الإعلاني</h2>
+          </div>
+          <form id="settings-form" style="padding: 2rem;" onsubmit="saveSiteSettings(event)">
+            <h3 style="color: var(--gold); margin-bottom: 1rem;">1. الشريط الإعلاني العلوي (Top Announcement Bar)</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>الرسائل بالعربية (رسالة بكل سطر):</label>
+                <textarea id="set-ann-ar" rows="4"></textarea>
+              </div>
+              <div class="form-group">
+                <label>الرسائل بالإنجليزية (رسالة بكل سطر):</label>
+                <textarea id="set-ann-en" rows="4"></textarea>
+              </div>
+            </div>
+
+            <h3 style="color: var(--gold); margin: 1.5rem 0 1rem;">2. قسم البانر الرئيسي (Hero Campaign)</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>العنوان الرئيسي (عربي):</label>
+                <input type="text" id="set-hero-title-ar" />
+              </div>
+              <div class="form-group">
+                <label>العنوان الرئيسي (إنجليزي):</label>
+                <input type="text" id="set-hero-title-en" />
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>الوصف (عربي):</label>
+                <textarea id="set-hero-desc-ar" rows="2"></textarea>
+              </div>
+              <div class="form-group">
+                <label>الوصف (إنجليزي):</label>
+                <textarea id="set-hero-desc-en" rows="2"></textarea>
+              </div>
+            </div>
+
+            <h3 style="color: var(--gold); margin: 1.5rem 0 1rem;">3. معلومات التواصل وبيانات المتجر</h3>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label>رقم الهاتف / الواتساب:</label>
+                <input type="text" id="set-phone" />
+              </div>
+              <div class="form-group">
+                <label>البريد الإلكتروني:</label>
+                <input type="email" id="set-email" />
+              </div>
+              <div class="form-group">
+                <label>الحد الأدنى للشحن المجاني (ج.م):</label>
+                <input type="number" id="set-shipping-threshold" />
+              </div>
+            </div>
+
+            <button type="submit" class="btn-gold" style="margin-top: 1rem; padding: 0.85rem 2.5rem;">
+              حفظ وتطبيق التغييرات على الموقع 💾
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= TAB 5: MESSAGES ================= -->
+      <section id="tab-messages" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">رسائل واستفسارات العملاء (تواصل معنا)</h2>
+          </div>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>اسم العميل</th>
+                  <th>البريد الإلكتروني</th>
+                  <th>الموضوع</th>
+                  <th>الرسالة</th>
+                  <th>التاريخ</th>
+                  <th>إجراء</th>
+                </tr>
+              </thead>
+              <tbody id="messages-table-body">
+                <tr><td colspan="6" style="text-align:center;">جاري تحميل الرسائل...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 6: SUBSCRIBERS ================= -->
+      <section id="tab-subscribers" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 class="panel-title">قائمة المشتركين في النشرة الإخبارية</h2>
+            <button class="btn btn-secondary btn-sm" onclick="exportSubscribers()">📥 نسخ قائمة الإيميلات</button>
+          </div>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>البريد الإلكتروني للمشترك</th>
+                  <th>تاريخ الاشتراك</th>
+                  <th>إجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="subscribers-table-body">
+                <tr><td colspan="4" style="text-align:center;">جاري تحميل المشتركين...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ADD / EDIT PRODUCT MODAL -->
+  <div id="product-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-product-title">إضافة عطر جديد</h2>
+        <button type="button" class="close-btn" onclick="closeProductModal()">&times;</button>
+      </div>
+
+      <form id="product-form" onsubmit="handleSaveProduct(event)">
+        <input type="hidden" id="prod-id" />
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>اسم العطر بالعربية *</label>
+            <input type="text" id="prod-name-ar" required placeholder="مثال: رويال عنبر عود" />
+          </div>
+          <div class="form-group">
+            <label>اسم العطر بالإنجليزية *</label>
+            <input type="text" id="prod-name-en" required placeholder="e.g. Royal Amber Oud" />
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>دار العطور / الماركة *</label>
+            <input type="text" id="prod-brand" required placeholder="Chanel, Creed, Be Special Privé..." />
+          </div>
+          <div class="form-group">
+            <label>الفئة *</label>
+            <select id="prod-category">
+              <option value="men">رجالي (Men)</option>
+              <option value="women">نسائي (Women)</option>
+              <option value="unisex">للجنسين (Unisex)</option>
+              <option value="luxury">المجموعة الفاخرة (Luxury)</option>
+              <option value="arabic">عطور شرقية وعود (Arabic Oud)</option>
+              <option value="gift-sets">أطقم الهدايا (Gift Sets)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>التركيز</label>
+            <input type="text" id="prod-concentration" placeholder="Eau de Parfum / Extrait" value="Eau de Parfum" />
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>السعر (ج.م) *</label>
+            <input type="number" id="prod-price" required step="1" placeholder="2400" />
+          </div>
+          <div class="form-group">
+            <label>السعر الأصلي قبل الخصم (ج.م)</label>
+            <input type="number" id="prod-orig-price" step="1" placeholder="2800" />
+          </div>
+          <div class="form-group">
+            <label>نسبة الخصم (إن وجد)</label>
+            <input type="text" id="prod-discount" placeholder="مثال: 20%" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>صورة العطر:</label>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center; flex-wrap: wrap;">
+            <select id="prod-image-select" onchange="onSelectImage(this.value)" style="flex: 1; min-width: 220px;">
+              <option value="">-- اختر من صور العطور الموجودة بالمتجر --</option>
+            </select>
+            <label class="btn btn-secondary" style="margin: 0; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.4rem;">
+              📁 رفع صورة جديدة
+              <input type="file" id="prod-image-file" accept="image/*" style="display: none;" onchange="handleImageUpload(event)" />
+            </label>
+          </div>
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <input type="text" id="prod-image" required placeholder="/perfumes/Gold tears.jpg" style="flex: 1;" oninput="updateImagePreview(this.value)" />
+            <img id="prod-image-preview" src="" alt="معاينة الصورة" style="width: 52px; height: 52px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border); background: #000; display: none;" />
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>وصف العطر بالعربية:</label>
+            <textarea id="prod-desc-ar" rows="2" placeholder="وصف فاخر للمكونات والمشاعر..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>وصف العطر بالإنجليزية:</label>
+            <textarea id="prod-desc-en" rows="2" placeholder="A rich, seductive composition..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>حجم الزجاجة</label>
+            <input type="text" id="prod-size" value="100ml / 3.4 oz" />
+          </div>
+          <div class="form-group">
+            <label>الأكثر طلباً؟</label>
+            <select id="prod-bestseller">
+              <option value="false">لا</option>
+              <option value="true">نعم (Best Seller)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>حالة التوفر بالمخزون</label>
+            <select id="prod-instock">
+              <option value="true">متوفر بالمخزون (In Stock)</option>
+              <option value="false">نفذت الكمية (Out of Stock)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" class="action-btn" onclick="closeProductModal()">إلغاء</button>
+          <button type="submit" class="btn-gold">حفظ العطر</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST FEEDBACK -->
+  <div id="toast" class="toast-box">
+    <span>✦</span>
+    <span id="toast-text">تم الحفظ بنجاح</span>
+  </div>
+
+  <script>
+    const API_BASE = '/api';
+
+    // Show Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+
+    // Switch Tabs
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    const topHeading = document.getElementById('topbar-heading');
+
+    const tabHeadings = {
+      overview: 'لوحة المؤشرات العامة',
+      products: 'إدارة العطور والمنتجات',
+      orders: 'إدارة الطلبات والمبيعات',
+      settings: 'التحكم في الموقع والشريط الإعلاني',
+      messages: 'رسائل واستفسارات العملاء',
+      subscribers: 'مشتركو النشرة البريدية'
+    };
+
+    function switchTab(tabId) {
+      navButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabId);
+      });
+      tabPanes.forEach(pane => {
+        pane.classList.toggle('active', pane.id === `tab-${tabId}`);
+      });
+      topHeading.innerText = tabHeadings[tabId] || 'لوحة التحكم';
+    }
+
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    // 1. Load Overview Stats
+    async function loadStats() {
+      try {
+        const res = await fetch(`${API_BASE}/stats`);
+        const data = await res.json();
+        document.getElementById('stat-revenue').innerText = `${data.totalRevenue.toLocaleString()} ج.م`;
+        document.getElementById('stat-orders').innerText = data.totalOrders;
+        document.getElementById('stat-pending-orders').innerText = `${data.pendingOrders} قيد الانتظار`;
+        document.getElementById('stat-products').innerText = data.totalProducts;
+        document.getElementById('stat-subscribers').innerText = data.totalSubscribers;
+        document.getElementById('stat-unread-msg').innerText = `${data.unreadMessages} رسائل جديدة`;
+
+        const recentBody = document.getElementById('recent-orders-body');
+        if (data.recentOrders && data.recentOrders.length > 0) {
+          recentBody.innerHTML = data.recentOrders.map(o => `
+            <tr>
+              <td><strong>${o.id}</strong></td>
+              <td>${o.customer?.fullName || 'عميل'}</td>
+              <td>${new Date(o.createdAt).toLocaleDateString('ar-EG')}</td>
+              <td><strong>${o.total.toLocaleString()} ج.م</strong></td>
+              <td><span class="badge-status badge-${getStatusClass(o.status)}">${o.status}</span></td>
+            </tr>
+          `).join('');
+        } else {
+          recentBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">لا توجد طلبات مسجلة بعد</td></tr>`;
+        }
+      } catch (err) {
+        console.error('Failed to load stats:', err);
+      }
+    }
+
+    function getStatusClass(status) {
+      if (status === 'Delivered' || status === 'تم التوصيل') return 'delivered';
+      if (status === 'Processing' || status === 'جاري التجهيز') return 'processing';
+      if (status === 'Cancelled' || status === 'ملغي') return 'cancelled';
+      return 'pending';
+    }
+
+    // 2. Load Products
+    async function loadProducts() {
+      try {
+        const res = await fetch(`${API_BASE}/products`);
+        const products = await res.json();
+        const tbody = document.getElementById('products-table-body');
+        if (products.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">لا توجد عطور حالياً</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = products.map(p => `
+          <tr>
+            <td><img src="${p.image}" alt="${p.name}" class="product-thumb" onerror="this.src='/images/product-midnight-woods.png'" /></td>
+            <td><strong>${p.nameAr || p.name}</strong><br><small style="color:var(--text-muted)">${p.name}</small></td>
+            <td><span style="color:var(--gold); font-weight:600;">${p.brand}</span></td>
+            <td>${p.category}</td>
+            <td><strong>${p.price.toLocaleString()} ج.م</strong> ${p.originalPrice ? `<span style="text-decoration:line-through; color:var(--text-muted); font-size:0.75rem;">${p.originalPrice.toLocaleString()} ج.م</span>` : ''}</td>
+            <td>${p.discount ? `<span style="color:var(--gold); font-weight:700;">${p.discount}</span>` : '—'}</td>
+            <td>${p.inStock ? '<span style="color:#81C784;">متوفر</span>' : '<span style="color:#E57373;">نفذ</span>'}</td>
+            <td>
+              <div class="table-actions">
+                <button class="action-btn" onclick='editProduct(${JSON.stringify(p).replace(/'/g, "&apos;")})'>تعديل</button>
+                <button class="action-btn action-btn--delete" onclick="deleteProduct('${p.id}')">حذف</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Failed to load products:', err);
+      }
+    }
+
+    // 3. Load Available Images
+    async function loadImagesDropdown() {
+      try {
+        const res = await fetch(`${API_BASE}/images`);
+        const images = await res.json();
+        const select = document.getElementById('prod-image-select');
+        select.innerHTML = '<option value="">-- اختر من صور العطور الموجودة بالمتجر --</option>' +
+          images.map(img => `<option value="${img}">${img.replace('/perfumes/', '')}</option>`).join('');
+      } catch (err) {
+        console.error('Failed to load images:', err);
+      }
+    }
+
+    function onSelectImage(val) {
+      if (val) {
+        document.getElementById('prod-image').value = val;
+        updateImagePreview(val);
+      }
+    }
+
+    function updateImagePreview(src) {
+      const preview = document.getElementById('prod-image-preview');
+      if (src && src.trim()) {
+        preview.src = src;
+        preview.style.display = 'block';
+        preview.onerror = () => { preview.style.display = 'none'; };
+      } else {
+        preview.style.display = 'none';
+      }
+    }
+
+    async function handleImageUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const res = await fetch(`${API_BASE}/upload`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              filename: file.name,
+              base64: reader.result
+            })
+          });
+          const data = await res.json();
+          if (res.ok && data.url) {
+            document.getElementById('prod-image').value = data.url;
+            updateImagePreview(data.url);
+            showToast('تم رفع صورة العطر بنجاح');
+            loadImagesDropdown();
+          } else {
+            alert(data.error || 'فشل في رفع الصورة');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('حدث خطأ أثناء رفع الصورة');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 4. Modal Add / Edit Product
+    function openAddProductModal() {
+      document.getElementById('product-form').reset();
+      document.getElementById('prod-id').value = '';
+      updateImagePreview('');
+      document.getElementById('modal-product-title').innerText = 'إضافة عطر جديد إلى المتجر';
+      document.getElementById('product-modal').classList.add('open');
+    }
+
+    function editProduct(prod) {
+      document.getElementById('modal-product-title').innerText = 'تعديل بيانات العطر';
+      document.getElementById('prod-id').value = prod.id;
+      document.getElementById('prod-name-ar').value = prod.nameAr || '';
+      document.getElementById('prod-name-en').value = prod.name || '';
+      document.getElementById('prod-brand').value = prod.brand || '';
+      document.getElementById('prod-category').value = prod.category || 'unisex';
+      document.getElementById('prod-concentration').value = prod.concentration || 'Eau de Parfum';
+      document.getElementById('prod-price').value = prod.price || '';
+      document.getElementById('prod-orig-price').value = prod.originalPrice || '';
+      document.getElementById('prod-discount').value = prod.discount || '';
+      document.getElementById('prod-image').value = prod.image || '';
+      updateImagePreview(prod.image || '');
+      document.getElementById('prod-desc-ar').value = prod.shortDescAr || '';
+      document.getElementById('prod-desc-en').value = prod.shortDescEn || '';
+      document.getElementById('prod-size').value = prod.size || '100ml / 3.4 oz';
+      document.getElementById('prod-bestseller').value = prod.isBestSeller ? 'true' : 'false';
+      document.getElementById('prod-instock').value = prod.inStock ? 'true' : 'false';
+      document.getElementById('product-modal').classList.add('open');
+    }
+
+    function closeProductModal() {
+      document.getElementById('product-modal').classList.remove('open');
+    }
+
+    async function handleSaveProduct(e) {
+      e.preventDefault();
+      const id = document.getElementById('prod-id').value;
+      const payload = {
+        name: document.getElementById('prod-name-en').value,
+        nameAr: document.getElementById('prod-name-ar').value,
+        brand: document.getElementById('prod-brand').value,
+        category: document.getElementById('prod-category').value,
+        concentration: document.getElementById('prod-concentration').value,
+        price: Number(document.getElementById('prod-price').value),
+        originalPrice: document.getElementById('prod-orig-price').value ? Number(document.getElementById('prod-orig-price').value) : null,
+        discount: document.getElementById('prod-discount').value || null,
+        image: document.getElementById('prod-image').value,
+        shortDescAr: document.getElementById('prod-desc-ar').value,
+        shortDescEn: document.getElementById('prod-desc-en').value,
+        size: document.getElementById('prod-size').value,
+        isBestSeller: document.getElementById('prod-bestseller').value === 'true',
+        inStock: document.getElementById('prod-instock').value === 'true'
+      };
+
+      try {
+        let res;
+        if (id) {
+          res = await fetch(`${API_BASE}/products/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          res = await fetch(`${API_BASE}/products`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+        if (res.ok) {
+          closeProductModal();
+          showToast(id ? 'تم تحديث بيانات العطر بنجاح' : 'تم إضافة العطر الجديد للمتجر');
+          loadProducts();
+          loadStats();
+        }
+      } catch (err) {
+        alert('حدث خطأ أثناء حفظ العطر');
+      }
+    }
+
+    async function deleteProduct(id) {
+      if (!confirm('هل أنت متأكد من حذف هذا العطر من المتجر؟')) return;
+      try {
+        const res = await fetch(`${API_BASE}/products/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast('تم حذف العطر بنجاح');
+          loadProducts();
+          loadStats();
+        }
+      } catch (err) {
+        alert('فشل في حذف العطر');
+      }
+    }
+
+    // 5. Load Orders
+    async function loadOrders() {
+      try {
+        const res = await fetch(`${API_BASE}/orders`);
+        const orders = await res.json();
+        const tbody = document.getElementById('orders-table-body');
+        if (orders.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">لا توجد طلبات مسجلة</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = orders.map(o => `
+          <tr>
+            <td><strong>${o.id}</strong><br><small style="color:var(--text-muted)">${new Date(o.createdAt).toLocaleDateString('ar-EG')}</small></td>
+            <td><strong>${o.customer?.fullName || 'عميل'}</strong><br><small dir="ltr">${o.customer?.phone || o.customer?.email || ''}</small></td>
+            <td>${o.customer?.city || ''}, ${o.customer?.country || ''}</td>
+            <td>${o.items?.map(it => `<div>• ${it.name} (${it.quantity || 1})</div>`).join('') || 'عطور'}</td>
+            <td><strong style="color:var(--gold); font-size:1.05rem;">${o.total.toLocaleString()} ج.م</strong></td>
+            <td><small>${o.paymentMethod || 'بطاقة ائتمان'}</small></td>
+            <td>
+              <select onchange="updateOrderStatus('${o.id}', this.value)" style="background:var(--espresso-dark); color:var(--ivory); border:1px solid var(--border); padding:0.35rem 0.5rem; border-radius:4px; font-size:0.75rem;">
+                <option value="Pending" ${o.status === 'Pending' ? 'selected' : ''}>قيد المراجعة (Pending)</option>
+                <option value="Processing" ${o.status === 'Processing' ? 'selected' : ''}>جاري التجهيز (Processing)</option>
+                <option value="Shipped" ${o.status === 'Shipped' ? 'selected' : ''}>تم الشحن (Shipped)</option>
+                <option value="Delivered" ${o.status === 'Delivered' ? 'selected' : ''}>تم التوصيل (Delivered)</option>
+                <option value="Cancelled" ${o.status === 'Cancelled' ? 'selected' : ''}>ملغي (Cancelled)</option>
+              </select>
+            </td>
+            <td>
+              <button class="action-btn action-btn--delete" onclick="deleteOrder('${o.id}')">حذف</button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Failed to load orders:', err);
+      }
+    }
+
+    async function updateOrderStatus(orderId, status) {
+      try {
+        const res = await fetch(`${API_BASE}/orders/${orderId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        if (res.ok) {
+          showToast(`تم تغيير حالة الطلب ${orderId} إلى: ${status}`);
+          loadStats();
+        }
+      } catch (err) {
+        alert('فشل في تحديث حالة الطلب');
+      }
+    }
+
+    async function deleteOrder(id) {
+      if (!confirm('هل تريد حذف هذا الطلب نهائياً؟')) return;
+      try {
+        const res = await fetch(`${API_BASE}/orders/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast('تم حذف الطلب');
+          loadOrders();
+          loadStats();
+        }
+      } catch (err) {
+        alert('فشل في حذف الطلب');
+      }
+    }
+
+    // 6. Settings Load & Save
+    async function loadSettings() {
+      try {
+        const res = await fetch(`${API_BASE}/settings`);
+        const s = await res.json();
+        document.getElementById('set-ann-ar').value = (s.announcementsAr || []).join('\n');
+        document.getElementById('set-ann-en').value = (s.announcementsEn || []).join('\n');
+        document.getElementById('set-hero-title-ar').value = s.heroAr?.title || '';
+        document.getElementById('set-hero-title-en').value = s.heroEn?.title || '';
+        document.getElementById('set-hero-desc-ar').value = s.heroAr?.description || '';
+        document.getElementById('set-hero-desc-en').value = s.heroEn?.description || '';
+        document.getElementById('set-phone').value = s.contact?.phone || '';
+        document.getElementById('set-email').value = s.contact?.email || '';
+        document.getElementById('set-shipping-threshold').value = s.freeShippingThreshold || 50;
+      } catch (err) {
+        console.error('Failed to load settings:', err);
+      }
+    }
+
+    async function saveSiteSettings(e) {
+      e.preventDefault();
+      const payload = {
+        announcementsAr: document.getElementById('set-ann-ar').value.split('\n').filter(Boolean),
+        announcementsEn: document.getElementById('set-ann-en').value.split('\n').filter(Boolean),
+        heroAr: {
+          title: document.getElementById('set-hero-title-ar').value,
+          description: document.getElementById('set-hero-desc-ar').value
+        },
+        heroEn: {
+          title: document.getElementById('set-hero-title-en').value,
+          description: document.getElementById('set-hero-desc-en').value
+        },
+        contact: {
+          phone: document.getElementById('set-phone').value,
+          email: document.getElementById('set-email').value
+        },
+        freeShippingThreshold: Number(document.getElementById('set-shipping-threshold').value)
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/settings`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          showToast('تم حفظ وتطبيق التغييرات على المتجر بنجاح');
+        }
+      } catch (err) {
+        alert('فشل في حفظ الإعدادات');
+      }
+    }
+
+    // 7. Load Messages
+    async function loadMessages() {
+      try {
+        const res = await fetch(`${API_BASE}/messages`);
+        const msgs = await res.json();
+        const tbody = document.getElementById('messages-table-body');
+        if (msgs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">لا توجد رسائل جديدة</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = msgs.map(m => `
+          <tr>
+            <td><strong>${m.name}</strong></td>
+            <td><a href="mailto:${m.email}" style="color:var(--gold);">${m.email}</a></td>
+            <td><strong>${m.subject}</strong></td>
+            <td style="max-width:320px; font-size:0.82rem;">${m.message}</td>
+            <td><small>${new Date(m.date).toLocaleDateString('ar-EG')}</small></td>
+            <td>
+              <button class="action-btn action-btn--delete" onclick="deleteMessage('${m.id}')">حذف</button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Failed to load messages:', err);
+      }
+    }
+
+    async function deleteMessage(id) {
+      if (!confirm('حذف هذه الرسالة؟')) return;
+      try {
+        const res = await fetch(`${API_BASE}/messages/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast('تم حذف الرسالة');
+          loadMessages();
+          loadStats();
+        }
+      } catch (err) {
+        alert('فشل في حذف الرسالة');
+      }
+    }
+
+    // 8. Load Subscribers
+    let currentSubscribers = [];
+    async function loadSubscribers() {
+      try {
+        const res = await fetch(`${API_BASE}/subscribers`);
+        currentSubscribers = await res.json();
+        const tbody = document.getElementById('subscribers-table-body');
+        if (currentSubscribers.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">لا يوجد مشتركون حالياً</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = currentSubscribers.map((s, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td><strong>${s.email}</strong></td>
+            <td><small>${new Date(s.subscribedAt).toLocaleDateString('ar-EG')}</small></td>
+            <td>
+              <button class="action-btn action-btn--delete" onclick="deleteSubscriber('${s.id || s.email}')">حذف</button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Failed to load subscribers:', err);
+      }
+    }
+
+    async function deleteSubscriber(id) {
+      if (!confirm('حذف هذا المشترك؟')) return;
+      try {
+        const res = await fetch(`${API_BASE}/subscribers/${encodeURIComponent(id)}`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast('تم حذف المشترك');
+          loadSubscribers();
+          loadStats();
+        }
+      } catch (err) {
+        alert('فشل في حذف المشترك');
+      }
+    }
+
+    function exportSubscribers() {
+      if (!currentSubscribers || currentSubscribers.length === 0) {
+        alert('لا توجد إيميلات للنسخ');
+        return;
+      }
+      const emails = currentSubscribers.map(s => s.email).join(', ');
+      navigator.clipboard.writeText(emails).then(() => {
+        showToast('تم نسخ ' + currentSubscribers.length + ' بريد إلكتروني للحافظة');
+      }).catch(() => {
+        alert('قائمة الإيميلات:\n' + emails);
+      });
+    }
+
+    // Initial Load
+    loadStats();
+    loadProducts();
+    loadOrders();
+    loadSettings();
+    loadMessages();
+    loadSubscribers();
+    loadImagesDropdown();
+  </script>
+</body>
+</html>
+

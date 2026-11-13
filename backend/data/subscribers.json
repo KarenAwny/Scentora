@@ -1,0 +1,13 @@
+[
+  {
+    "id": "SUB-1",
+    "email": "sarah.m@example.com",
+    "subscribedAt": "2026-11-06T12:00:00.000Z"
+  },
+  {
+    "id": "SUB-2",
+    "email": "khalid.vip@gmail.com",
+    "subscribedAt": "2026-11-07T08:30:00.000Z"
+  }
+]
+

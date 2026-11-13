@@ -1,0 +1,41 @@
+{
+  "brandNameEn": "Scentora",
+  "brandNameAr": "سنتورا",
+  "taglineEn": "Your Scent. Your Identity.",
+  "taglineAr": "عطرك.. بصمتك الخاصة.",
+  "freeShippingThreshold": 50,
+  "announcementsEn": [
+    "Free Shipping on Orders Over 3,000 EGP",
+    "100% Authentic Products",
+    "Fast & Secure Delivery",
+    "Exclusive Offers & Discounts"
+  ],
+  "announcementsAr": [
+    "شحن مجاني للطلبات فوق 3,000 ج.م",
+    "منتجات أصلية 100%",
+    "توصيل سريع لكافة المحافظات",
+    "عروض وخصومات حصرية"
+  ],
+  "heroEn": {
+    "eyebrow": "DISCOVER YOUR SIGNATURE SCENT",
+    "title": "Fragrances That Define You",
+    "description": "Premium perfumes for every mood, occasion, and personality. Explore a world of authentic fragrances from top global brands.",
+    "ctaShop": "Shop Now",
+    "ctaExplore": "Explore Collections"
+  },
+  "heroAr": {
+    "eyebrow": "اكتشف عطرك اللي بيعبر عنك",
+    "title": "عطور تُعرّف هويتك",
+    "description": "اكتشف عالم من العطور الأصلية الفاخرة، واختار العطر اللي يناسب شخصيتك ومناسباتك من أرقى بيوت العطور العالمية.",
+    "ctaShop": "تسوق الآن",
+    "ctaExplore": "اكتشف المجموعات"
+  },
+  "contact": {
+    "phone": "+971 4 398 0000 / +1 (800) 845-SPEC",
+    "email": "concierge@bespecialperfumes.com",
+    "addressEn": "742 Fifth Avenue, Luxury Fragrance Row, New York & Boulevard de la Croisette, Cannes",
+    "addressAr": "برج العطور الفاخرة، شارع الشيخ زايد، دبي & الجادة الخامسة، نيويورك",
+    "hours": "Mon – Sat: 9:00 AM – 9:00 PM EST"
+  }
+}
+

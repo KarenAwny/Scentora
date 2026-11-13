@@ -1,0 +1,66 @@
+[
+  {
+    "id": "BSP-849201",
+    "customer": {
+      "fullName": "Sarah Miller",
+      "email": "sarah.m@example.com",
+      "phone": "+1 (555) 392-1824",
+      "address": "742 Fifth Avenue, Apt 12B",
+      "city": "New York",
+      "country": "United States",
+      "postalCode": "10022"
+    },
+    "items": [
+      {
+        "id": "bleu-de-chanel-edp",
+        "name": "Bleu de Chanel Eau de Parfum",
+        "size": "100ml / 3.4 oz",
+        "price": 120,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 120,
+    "shipping": 0,
+    "total": 120,
+    "deliveryMethod": "standard",
+    "paymentMethod": "Credit Card",
+    "status": "Delivered",
+    "createdAt": "2026-11-06T14:32:00.000Z"
+  },
+  {
+    "id": "BSP-592814",
+    "customer": {
+      "fullName": "محمد عبد الله الخالدي",
+      "email": "m.alkhalidi@gmail.com",
+      "phone": "+966 50 123 4567",
+      "address": "حي النخيل، شارع الأمير سلطان",
+      "city": "الرياض",
+      "country": "Saudi Arabia",
+      "postalCode": "12381"
+    },
+    "items": [
+      {
+        "id": "creed-aventus-edp",
+        "name": "Creed Aventus Eau de Parfum",
+        "size": "100ml / 3.4 oz",
+        "price": 350,
+        "quantity": 1
+      },
+      {
+        "id": "royal-amber-oud-extreme",
+        "name": "Royal Amber Oud Extrait",
+        "size": "100ml / 3.4 oz",
+        "price": 210,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 560,
+    "shipping": 0,
+    "total": 560,
+    "deliveryMethod": "express",
+    "paymentMethod": "Apple Pay",
+    "status": "Processing",
+    "createdAt": "2026-11-07T09:15:00.000Z"
+  }
+]
+
